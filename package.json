@@ -1,0 +1,23 @@
+{
+  "name": "task-manager-rest-api",
+  "version": "1.0.0",
+  "description": "\"task management RestFul API\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kpps17/Task-Manager-REST-API.git"
+  },
+  "author": "\"Archit Sinha (kpps17)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kpps17/Task-Manager-REST-API/issues"
+  },
+  "homepage": "https://github.com/kpps17/Task-Manager-REST-API#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^6.0.10"
+  }
+}
