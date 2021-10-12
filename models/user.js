@@ -46,6 +46,7 @@ userSchema.virtual(('task'), {
 });
 
 userSchema.methods.toJSON = function () {
+    console.log('here in toJSON');
     const user = this;
     const userObject = user.toObject();
     delete userObject.password;
@@ -57,11 +58,12 @@ userSchema.methods.getAuthToken = async function () {
     const user = this;
     const payload = user['_id'];
     const token = jwt.sign({ id: payload }, JWT_KEY);
-    user.token.push({ token: token.toString() });
-    console.log('here');
+    user.tokens = user.tokens.concat([{ token: token.toString() }]);
     await user.save()
+    console.log('here in getAuthToken');
     return token;
 }
+
 
 userSchema.pre('save', async function (next) {
     const user = this;
