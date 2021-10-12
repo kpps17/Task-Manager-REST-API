@@ -1,4 +1,5 @@
 const express = require('express');
+const { userRouter } = require('./routers/userRouter');
 
 // creating an express app
 const app = express();
@@ -10,6 +11,8 @@ require('./config/db')
 app.use(express.json());
 
 const port = process.env.PORT || 3000;
+
+app.use('/users', userRouter)
 
 // setting up server on a port 
 app.listen(port, (req, res) => {
