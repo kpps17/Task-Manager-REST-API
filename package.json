@@ -18,7 +18,10 @@
   },
   "homepage": "https://github.com/kpps17/Task-Manager-REST-API#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "express": "^4.17.1",
-    "mongoose": "^6.0.10"
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.0.10",
+    "validator": "^13.6.0"
   }
 }
