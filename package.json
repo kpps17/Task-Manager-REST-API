@@ -1,7 +1,7 @@
 {
   "name": "task-manager-rest-api",
   "version": "1.0.0",
-  "description": "\"task management RestFul API\"",
+  "description": "\"task management RESTful API\"",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -19,6 +19,7 @@
   "homepage": "https://github.com/kpps17/Task-Manager-REST-API#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.5",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.10",

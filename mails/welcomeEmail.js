@@ -29,4 +29,3 @@ module.exports.welcomeEmail = async function welcomeEmail(user) {
         }
     });
 };
-

@@ -3,6 +3,7 @@ const { user } = require('../models/user');
 const { welcomeEmail } = require('../mails/welcomeEmail');
 const userRouter = express.Router();
 const bcryptjs = require('bcryptjs');
+const { authHelper } = require('../middleware/authUser');
 
 userRouter.post('/', async (req, res) => {
     const newUser = new user(req.body);
@@ -11,8 +12,8 @@ userRouter.post('/', async (req, res) => {
         let token = await client.getAuthToken();
         welcomeEmail(client);
         return res.status(201).send({
-            message: "user sucessfully created",
             user: client,
+            token,
         })
     } catch (err) {
         return res.status(400).json({
@@ -28,8 +29,12 @@ userRouter.post('/login', async (req, res) => {
         if (client) {
             const isVerified = await bcryptjs.compare(clientPassword, client.password);
             if (isVerified) {
+                let token = await client.getAuthToken();
+                res.cookie('login', token, { httpOnly: true });
                 return res.status(200).json({
-                    client
+                    message: "user logged in",
+                    client,
+                    token
                 })
             } else {
                 res.status(404).json({
@@ -45,6 +50,21 @@ userRouter.post('/login', async (req, res) => {
         return res.status(400).json({
             message: err.message,
         })
+    }
+})
+
+userRouter.post('/logout', authHelper, async (req, res) => {
+    try {
+        req.client.tokens = req.client.tokens.filter( token => token.token !== req.token);
+        await req.client.save();
+        return res.status(200).json({
+            success: 'Logged out successfully!'
+        });
+
+    } catch(err) {
+        return res.status(500).json({
+            message: err.message,
+        });
     }
 })
 
