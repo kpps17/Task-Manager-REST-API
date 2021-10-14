@@ -82,4 +82,8 @@ userRouter.post('/logoutAll', authHelper, async (req, res) => {
     }
 })
 
+userRouter.get('/me', authHelper, (req, res) => {
+    return res.status(200).send(req.client);
+})
+
 module.exports = { userRouter };
