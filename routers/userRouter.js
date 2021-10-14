@@ -55,13 +55,27 @@ userRouter.post('/login', async (req, res) => {
 
 userRouter.post('/logout', authHelper, async (req, res) => {
     try {
-        req.client.tokens = req.client.tokens.filter( token => token.token !== req.token);
+        req.client.tokens = req.client.tokens.filter(token => token.token !== req.token);
         await req.client.save();
         return res.status(200).json({
             success: 'Logged out successfully!'
         });
 
-    } catch(err) {
+    } catch (err) {
+        return res.status(500).json({
+            message: err.message,
+        });
+    }
+})
+
+userRouter.post('/logoutAll', authHelper, async (req, res) => {
+    try {
+        req.client.tokens = [];
+        await req.client.save();
+        return res.status(200).json({
+            success: "logged out all devices",
+        })
+    } catch (err) {
         return res.status(500).json({
             message: err.message,
         });

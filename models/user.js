@@ -59,7 +59,6 @@ userSchema.methods.getAuthToken = async function () {
     const token = jwt.sign({ id: payload }, JWT_KEY);
     user.tokens = user.tokens.concat([{ token: token.toString() }]);
     await user.save()
-    console.log('here in getAuthToken');
     return token;
 }
 
