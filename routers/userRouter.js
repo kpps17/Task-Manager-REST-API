@@ -86,4 +86,21 @@ userRouter.get('/me', authHelper, (req, res) => {
     return res.status(200).send(req.client);
 })
 
+userRouter.patch('/me', authHelper, async (req, res) => {
+    const updates = Object.keys(req.body);
+    const allowedUpdates = ['name', 'email', 'password'];
+    let isValid = false;
+    if(updates.length) {
+        isValid = updates.every(update => allowedUpdates.includes(update));
+    }
+    if(isValid == false) return res.status(400).json( { message: 'no updates or invalid updates are being applied'});
+    try {
+        updates.forEach(update => req.client[update] = req.body[update]);
+        await req.client.save();
+        return res.status(200).json({message : "successfully updated"});
+    } catch(err) {
+        return res.status(400).json( { message : err.message } )
+    }
+})
+
 module.exports = { userRouter };
