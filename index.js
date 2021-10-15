@@ -1,6 +1,7 @@
 const express = require('express');
 const { userRouter } = require('./routers/userRouter');
 const cookieParser = require('cookie-parser');
+const { taskRouter } = require('./routers/taskRouter');
 
 // creating an express app
 const app = express();
@@ -15,6 +16,7 @@ app.use(cookieParser());
 const port = process.env.PORT || 3000;
 
 app.use('/users', userRouter)
+app.use('/tasks', taskRouter);
 
 // setting up server on a port 
 app.listen(port, (req, res) => {
