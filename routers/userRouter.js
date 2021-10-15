@@ -4,6 +4,7 @@ const { welcomeEmail } = require('../mails/welcomeEmail');
 const userRouter = express.Router();
 const bcryptjs = require('bcryptjs');
 const { authHelper } = require('../middleware/authUser');
+const { cancelEmail } = require('../mails/cancelEmail');
 
 userRouter.post('/', async (req, res) => {
     const newUser = new user(req.body);
@@ -102,5 +103,20 @@ userRouter.patch('/me', authHelper, async (req, res) => {
         return res.status(400).json( { message : err.message } )
     }
 })
+
+userRouter.delete('/me', authHelper, async (req, res) => {
+    try {
+        await user.remove({_id: req.client._id});
+        cancelEmail(req.client);
+        console.log(req.client);
+        return res.status(200).json({
+            message: "bye",
+        })
+    } catch (err) {
+        return res.status(400).json({
+            messgae: err.message,
+        })
+    }
+}) 
 
 module.exports = { userRouter };

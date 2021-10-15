@@ -1,7 +1,7 @@
 const nodemailer = require('nodemailer');
 const { adminEmail, adminPassword } = require('../secrets');
 
-module.exports.welcomeEmail = async function welcomeEmail(user) {
+module.exports.cancelEmail = async function welcomeEmail(user) {
     let transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
         port: 587,
