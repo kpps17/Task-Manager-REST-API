@@ -60,4 +60,16 @@ taskRouter.patch('/:id', authHelper, async(req, res) => {
     }
 })
 
+taskRouter.delete('/:id', authHelper, async(req, res) => {
+    try {
+        const taskToDelete = await task.findOneAndDelete({_id: req.params.id, owner: req.client._id});
+        if(!taskToDelete) {
+            res.status(400).json({message: "no tasks found"});
+        } 
+        res.status(200).json({taskToDelete});
+    } catch (err) {
+        res.status(400).json({message: err.message});
+    }
+})
+
 module.exports = { taskRouter };
