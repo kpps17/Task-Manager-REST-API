@@ -37,4 +37,27 @@ taskRouter.get('/:id', authHelper, async (req, res) => {
     }
 })
 
+taskRouter.patch('/:id', authHelper, async(req, res) => {
+    const updates = Object.keys(req.body);
+    const allowedUpdates = ['description', 'completed'];
+    let isValid;
+    if (updates.length) {
+        isValid = updates.every( update => allowedUpdates.includes(update) );
+    } else {
+        isValid = false;
+    }
+    if(!isValid) {
+        return res.status(400).send({ error: 'Invalid updates being applied' });
+    }
+    try {
+        const Task = await task.findOne({ _id: req.params.id, owner: req.client._id});
+        if (!Task) return res.status(404).json({message: "no such task available"});
+        updates.forEach( update => Task[update] = req.body[update]);
+        await Task.save();
+        res.status(200).json({Task});
+    } catch(err) {
+        res.status(400).json({message: err.message});
+    }
+})
+
 module.exports = { taskRouter };
