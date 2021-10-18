@@ -17,4 +17,24 @@ taskRouter.post('/', authHelper, async (req, res) => {
     }
 });
 
+taskRouter.get('/:id', authHelper, async (req, res) => {
+    const _id = req.params.id;
+    console.log(_id);
+    try {
+        const userTask = await task.findOne({_id, owner: req.client._id});
+        if(!userTask) {
+            res.status(400).json({
+                message: "no task found",
+            })
+        }
+        res.status(200).json({
+            userTask,
+        })
+    } catch (err) {
+        res.status(500).json({
+            message: err.message,
+        })
+    }
+})
+
 module.exports = { taskRouter };
