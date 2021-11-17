@@ -15,6 +15,7 @@ async function authHelper (req, res, next) {
             } 
             req.token = tokenToBeVerifed;
             req.client = client;
+            // console.log(client);
             next();
         }
     } catch (err) {
