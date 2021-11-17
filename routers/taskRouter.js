@@ -23,7 +23,10 @@ taskRouter.get('/', authHelper, async (req, res) => {
         if(!taskofUser) {
             return res.status(400).json( {message: "no task for user"} );
         } 
+        if(!req.query.completed) 
+            return res.status(200).json(taskofUser);
         let editTaskList = taskofUser.filter((task) => {
+            console.log(req.query.completed);
             if(task.status == (req.query.completed === 'true')) 
                 return true;
             return false;
