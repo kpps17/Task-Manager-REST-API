@@ -2,6 +2,7 @@ const express = require('express');
 const { userRouter } = require('./routers/userRouter');
 const cookieParser = require('cookie-parser');
 const { taskRouter } = require('./routers/taskRouter');
+const cors = require('cors');
 
 // creating an express app
 const app = express();
@@ -12,8 +13,9 @@ require('./config/db')
 // express.json() is a method inbuilt in express to recognize the incoming Request Object as a JSON Object.
 app.use(express.json());
 app.use(cookieParser());
+app.use(cors());
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 
 app.use('/users', userRouter)
 app.use('/tasks', taskRouter);

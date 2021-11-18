@@ -17,8 +17,8 @@ userRouter.post('/', async (req, res) => {
             token,
         })
     } catch (err) {
-        return res.status(400).json({
-            message: err.message,
+        return res.status(200).json({
+            error: err.message,
         })
     }
 });
@@ -100,7 +100,7 @@ userRouter.patch('/me', authHelper, async (req, res) => {
         await req.client.save();
         return res.status(200).json({message : "successfully updated"});
     } catch(err) {
-        return res.status(400).json( { message : err.message } )
+        return res.status(200).json( { message : err.message } )
     }
 })
 
@@ -113,7 +113,7 @@ userRouter.delete('/me', authHelper, async (req, res) => {
             message: "bye",
         })
     } catch (err) {
-        return res.status(400).json({
+        return res.status(200).json({
             messgae: err.message,
         })
     }

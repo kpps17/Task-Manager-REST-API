@@ -25,7 +25,7 @@ module.exports.welcomeEmail = async function welcomeEmail(user) {
         if (err) {
             console.log(err);
         } else {
-            console.log('sucess');
+            // console.log('sucess');
         }
     });
 };
