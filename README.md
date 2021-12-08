@@ -216,28 +216,8 @@ Has full fledged support for user login and sign up.  Filter and sort your tasks
 *Secure Route*
 
 - __Query Strings__ :
-    1. GET /tasks?*completed=[true/false]*
-    2. GET /tasks?*limit=3&skip=6*
-    3. GET /tasks?*sortBy=[createdAt/updatedAt]:[desc/asc]*
-
-- Query strings implement sorting and pagination features while getting all the tasks:
-    1. Brings all the tasks which are completed or not completed. If not specified all tasks are matched.
-    2. Implements the pagination behavior to avoid large transfer of data over the requests and response. If not specified all the matching tasks are returned. Specifications :
-        - __limit__ : Specifies the number of tasks to show per page. Assume *l*.
-        - __skip__ : Specifies the number of tasks to skip before displaying the current limit of tasks. It is always a multiple of *l*. Assume *s*. 
-        - *Example* : <br>
-            - For the first page : *l* = 10 and *s* = 0 <br>
-            Brings 10 tasks without skipping any i.e. bring the first 10 tasks.
-            - For the second page : *l* = 10 and *s* = 10 <br>
-            Brings 10 tasks with skipping the first 10 (displayed on the first page) i.e. bring the next 10 tasks *(11 - 20)*
-            - For the *nth* page : <br>
-            limit = *l* <br>skip = *(n - 1) x l*
-    3. Sorts the matching tasks by the specified property in a particular order. If not specified the ascending/asc order is followed. Order :
-        - __asc__ : Sorts the found tasks in ascending order
-        - __desc__ : Sorts the found tasks in descending order       
-
-__Example__ <br>
-*GET/tasks?limit=2&skip=0&sortBy=createdAt:asc*
+    GET /tasks?*completed=[true/false]*
+    
 
 ```
 [
